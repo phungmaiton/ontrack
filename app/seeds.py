@@ -13,20 +13,14 @@ if __name__ == "__main__":
         companies = [
             Company(
                 name="Amazon",
-                website="https://amazon.com",
-                industry="Tech",
                 location="Arlington, VA",
             ),
             Company(
                 name="Netflix",
-                website="https://jobs.netflix.com",
-                industry="Entertainment",
                 location="Remote",
             ),
             Company(
                 name="Google",
-                website="https://careers.google.com",
-                industry="Tech",
                 location="Washington, DC",
             ),
         ]
