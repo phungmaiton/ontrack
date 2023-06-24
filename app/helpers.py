@@ -62,13 +62,6 @@ def add_app():
         company_id = new_company_id,
         contact_id = new_contact_id
     )
-    new_application = JobApplication(
-        job_title=title_input,
-        application_date=date_input,
-        status=status_input,
-        company_id=new_company_id,
-        contact_id=new_contact_id,
-    )
 
     db.session.add(new_application)
     db.session.commit()
@@ -138,5 +131,5 @@ def print_error():
         "    Type 'a' to add a new job application\n"
         "    Type 'u' if you want to update a job application status\n"
         "    Type 's' to view your applications based on application status\n"
-        "    Typoe 'x' to exit\n"
+        "    Type 'x' to exit\n"
     )
