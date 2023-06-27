@@ -29,13 +29,25 @@ if __name__ == "__main__":
                 industry="Tech",
                 location="Washington, DC",
             ),
+            Company(
+                name="Apple",
+                website="https://www.apple.com/careers/",
+                industry="Tech",
+                location="Remote",
+            ),
+            Company(
+                name="Twitter",
+                website="https://careers.twitter.com/",
+                industry="Social Network Company",
+                location="New York, NY",
+            ),
         ]
 
         db.session.add_all(companies)
 
         contacts = []
 
-        for _ in range(3):
+        for _ in range(5):
             fake_contact = Contact(
                 name=fake.name(), email=fake.email(), phone_number=fake.phone_number()
             )
@@ -64,6 +76,20 @@ if __name__ == "__main__":
                 status="Applied",
                 company_id=3,
                 contact_id=3,
+            ),
+            JobApplication(
+                job_title="Full Stack Developer",
+                application_date="6/27/2023",
+                status="Rejected",
+                company_id=4,
+                contact_id=4,
+            ),
+            JobApplication(
+                job_title="Android Enginner, Subscription/Commerce",
+                application_date="6/27/2023",
+                status="Applied",
+                company_id=4,
+                contact_id=4,
             ),
         ]
 
