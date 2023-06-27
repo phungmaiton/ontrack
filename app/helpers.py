@@ -2,11 +2,11 @@ from models import db, Company, Contact, JobApplication
 
 
 def view_apps(applications):
-    print("-" * 129)
+    print("-" * 131)
     print(
-        f'| {"ID":<3} | {"Job Title":<45} | {"Applied Date":<12} | {"Status":<20} | {"Company":<15} | {"Contact":<15} |'
+        f'| {"ID":<3} | {"Job Title":<45} | {"Applied Date":<12} | {"Status":<20} | {"Company":<15} | {"Contact":<17} |'
     )
-    print("-" * 129)
+    print("-" * 131)
     for application in applications:
         id_spaces = 3 - len(str(application.id))
         title_spaces = 45 - len(application.job_title)
@@ -15,42 +15,39 @@ def view_apps(applications):
         company_name = application.company.name
         company_spaces = 15 - len(company_name)
         contact_name = application.contact.name
-        contact_spaces = 15 - len(contact_name)
+        contact_spaces = 17 - len(contact_name)
         print(
             f'| {application.id}{" " * id_spaces} | {application.job_title}{" " * title_spaces} | {application.application_date}{" " * date_spaces} | {application.status}{" " * status_spaces} | {company_name}{" " * company_spaces} | {contact_name}{" " * contact_spaces} |'
         )
-    print("-" * 129)
+    print("-" * 131)
+
 
 def add_company():
-    company_name = input('Add company name: ')
-    company_location = input('Add company location: ')
+    company_name = input("Add company name: ")
+    company_location = input("Add company location: ")
 
-    new_company = Company (
-        name = company_name,
-        location = company_location
-    )
+    new_company = Company(name=company_name, location=company_location)
 
     db.session.add(new_company)
     db.session.commit()
     return new_company.id
 
-def add_contact():
-    contact_name = input('Add contact name: ')
-    contact_email = input('Add contact email: ')
-    contact_phone = input('Add contact phone number with dashes: ')
 
-    new_contact = Contact (
-        name = contact_name,
-        email = contact_email,
-        phone_number = contact_phone
+def add_contact():
+    contact_name = input("Add contact name: ")
+    contact_email = input("Add contact email: ")
+    contact_phone = input("Add contact phone number with dashes: ")
+
+    new_contact = Contact(
+        name=contact_name, email=contact_email, phone_number=contact_phone
     )
 
     db.session.add(new_contact)
     db.session.commit()
     return new_contact.id
 
-def add_app():
 
+def add_app():
     new_company_id = add_company()
     new_contact_id = add_contact()
 
@@ -59,6 +56,16 @@ def add_app():
     status_input = input(
         'Add status of application - please type "Applied," "Interview Scheduled," "Offer Received," or "Rejected": '
     )
+    new_application = JobApplication(
+        job_title=title_input,
+        application_date=date_input,
+        status=status_input,
+        company_id=new_company_id,
+        contact_id=new_contact_id,
+    )
+
+    db.session.add(new_application)
+    db.session.commit()
 
 
 def update_app(applications):
@@ -70,11 +77,11 @@ def update_app(applications):
             application.status = updated_status.title()
     db.session.commit()
     print("Updated Applications:")
-    print("-" * 129)
+    print("-" * 131)
     print(
-        f'| {"ID":<3} | {"Job Title":<45} | {"Applied Date":<12} | {"Status":<20} | {"Company":<15} | {"Contact":<15} |'
+        f'| {"ID":<3} | {"Job Title":<45} | {"Applied Date":<12} | {"Status":<20} | {"Company":<15} | {"Contact":<17} |'
     )
-    print("-" * 129)
+    print("-" * 131)
     for application in applications:
         id_spaces = 3 - len(str(application.id))
         title_spaces = 45 - len(application.job_title)
@@ -83,7 +90,7 @@ def update_app(applications):
         company_name = application.company.name
         company_spaces = 15 - len(company_name)
         contact_name = application.contact.name
-        contact_spaces = 15 - len(contact_name)
+        contact_spaces = 17 - len(contact_name)
         if application.id == int(selected_app):
             print(
                 f'\033[31m\033[1m| {application.id}{" " * id_spaces} | {application.job_title}{" " * title_spaces} | {application.application_date}{" " * date_spaces} | {application.status}{" " * status_spaces} | {company_name}{" " * company_spaces} | {contact_name}{" " * contact_spaces} |\033[0m'
@@ -92,21 +99,7 @@ def update_app(applications):
             print(
                 f'| {application.id}{" " * id_spaces} | {application.job_title}{" " * title_spaces} | {application.application_date}{" " * date_spaces} | {application.status}{" " * status_spaces} | {company_name}{" " * company_spaces} | {contact_name}{" " * contact_spaces} |'
             )
-    print("-" * 129)
-
-
-
-
-    new_application = JobApplication (
-        job_title = title_input,
-        application_date = date_input,
-        status = status_input,
-        company_id = new_company_id,
-        contact_id = new_contact_id
-    )
-
-    db.session.add(new_application)
-    db.session.commit()
+    print("-" * 131)
 
 
 def view_apps_by_status():

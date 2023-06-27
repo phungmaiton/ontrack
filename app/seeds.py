@@ -25,14 +25,10 @@ if __name__ == "__main__":
             ),
             Company(
                 name="Apple",
-                website="https://www.apple.com/careers/",
-                industry="Tech",
                 location="Remote",
             ),
             Company(
                 name="Twitter",
-                website="https://careers.twitter.com/",
-                industry="Social Network Company",
                 location="New York, NY",
             ),
         ]
@@ -82,8 +78,8 @@ if __name__ == "__main__":
                 job_title="Android Enginner, Subscription/Commerce",
                 application_date="6/27/2023",
                 status="Applied",
-                company_id=4,
-                contact_id=4,
+                company_id=5,
+                contact_id=5,
             ),
         ]
 
