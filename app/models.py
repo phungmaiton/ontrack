@@ -18,6 +18,10 @@ class Company(db.Model):
         back_populates="companies",
     )
 
+    applications = db.relationship(
+        "JobApplication", back_populates="company", overlaps="companies,contacts"
+    )
+
     def __repr__(self):
         return f"<Company {self.name}"
 
@@ -36,6 +40,10 @@ class Contact(db.Model):
         back_populates="contacts",
     )
 
+    applications = db.relationship(
+        "JobApplication", back_populates="contact", overlaps="companies,contacts"
+    )
+
     def __repr__(self):
         return f"<Contact {self.name}"
 
@@ -50,6 +58,13 @@ class JobApplication(db.Model):
 
     company_id = db.Column(db.Integer, db.ForeignKey("companies.id"))
     contact_id = db.Column(db.Integer, db.ForeignKey("contacts.id"))
+    contact = db.relationship(
+        "Contact", back_populates="applications", overlaps="companies,contacts"
+    )
+
+    company = db.relationship(
+        "Company", back_populates="applications", overlaps="companies,contacts"
+    )
 
     def __repr__(self):
         return f"<Job Application {self.job_title}"

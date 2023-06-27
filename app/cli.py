@@ -1,6 +1,13 @@
 from app import app
 from models import db, Company, Contact, JobApplication
-from helpers import view_apps, add_app, view_apps_by_status, update_app, print_error
+from helpers import (
+    view_apps,
+    add_app,
+    view_apps_by_status,
+    update_app,
+    print_error,
+    delete_app,
+)
 
 if __name__ == "__main__":
     with app.app_context():
@@ -18,6 +25,7 @@ if __name__ == "__main__":
                 "    Type 'a' to add a new job application\n"
                 "    Type 'u' if you want to update a job application status\n"
                 "    Type 's' to view your applications based on application status\n"
+                "    Type 'd' if you want to delete an application\n "
                 "    Typoe 'x' to exit\n"
             )
             if choice.lower() == "v":
@@ -28,6 +36,8 @@ if __name__ == "__main__":
                 update_app(applications)
             elif choice.lower() == "s":
                 view_apps_by_status()
+            elif choice.lower() == "d":
+                delete_app(applications)
             elif choice.lower() == "x":
                 exit_loop = True
             else:

@@ -2,26 +2,33 @@ from models import db, Company, Contact, JobApplication
 
 
 def view_apps(applications):
-    print("-" * 116)
+    print("-" * 129)
     print(
-        f'| {"ID":<3} | {"Job Title":<50} | {"Application Date":<20} | {"Status":<30} |'
+        f'| {"ID":<3} | {"Job Title":<45} | {"Applied Date":<12} | {"Status":<20} | {"Company":<15} | {"Contact":<15} |'
     )
-    print("-" * 116)
+    print("-" * 129)
     for application in applications:
         id_spaces = 3 - len(str(application.id))
-        title_spaces = 50 - len(application.job_title)
-        date_spaces = 20 - len(application.application_date)
-        status_spaces = 30 - len(application.status)
+        title_spaces = 45 - len(application.job_title)
+        date_spaces = 12 - len(application.application_date)
+        status_spaces = 20 - len(application.status)
+        company_name = application.company.name
+        company_spaces = 15 - len(company_name)
+        contact_name = application.contact.name
+        contact_spaces = 15 - len(contact_name)
         print(
-            f'| {application.id}{" " * id_spaces} | {application.job_title}{" " * title_spaces} | {application.application_date}{" " * date_spaces} | {application.status}{" " * status_spaces} |'
+            f'| {application.id}{" " * id_spaces} | {application.job_title}{" " * title_spaces} | {application.application_date}{" " * date_spaces} | {application.status}{" " * status_spaces} | {company_name}{" " * company_spaces} | {contact_name}{" " * contact_spaces} |'
         )
-    print("-" * 116)
+    print("-" * 129)
 
 
 def add_app():
-    title_input = input('Add job title: ')
-    date_input = input('Add date of submitting application: ')
-    status_input = input('Add status of application - please type "Applied," "Interview Scheduled," "Offer Received," or "Rejected": ')
+    title_input = input("Add job title: ")
+    date_input = input("Add date of submitting application: ")
+    status_input = input(
+        'Add status of application - please type "Applied," "Interview Scheduled," "Offer Received," or "Rejected": '
+    )
+
 
 def update_app(applications):
     view_apps(applications)
@@ -32,29 +39,46 @@ def update_app(applications):
             application.status = updated_status.title()
     db.session.commit()
     print("Updated Applications:")
-    print("-" * 116)
+    print("-" * 129)
     print(
-        f'| {"ID":<3} | {"Job Title":<50} | {"Application Date":<20} | {"Status":<30} |'
+        f'| {"ID":<3} | {"Job Title":<45} | {"Applied Date":<12} | {"Status":<20} | {"Company":<15} | {"Contact":<15} |'
     )
-    print("-" * 116)
+    print("-" * 129)
     for application in applications:
         id_spaces = 3 - len(str(application.id))
-        title_spaces = 50 - len(application.job_title)
-        date_spaces = 20 - len(application.application_date)
-        status_spaces = 30 - len(application.status)
-        if application.id == selected_app:
+        title_spaces = 45 - len(application.job_title)
+        date_spaces = 12 - len(application.application_date)
+        status_spaces = 20 - len(application.status)
+        company_name = application.company.name
+        company_spaces = 15 - len(company_name)
+        contact_name = application.contact.name
+        contact_spaces = 15 - len(contact_name)
+        if application.id == int(selected_app):
             print(
-                f'\033[1m| {application.id}{" " * id_spaces} | {application.job_title}{" " * title_spaces} | {application.application_date}{" " * date_spaces} | {application.status}{" " * status_spaces} |\033[0m'
+                f'\033[31m\033[1m| {application.id}{" " * id_spaces} | {application.job_title}{" " * title_spaces} | {application.application_date}{" " * date_spaces} | {application.status}{" " * status_spaces} | {company_name}{" " * company_spaces} | {contact_name}{" " * contact_spaces} |\033[0m'
             )
         else:
             print(
-                f'| {application.id}{" " * id_spaces} | {application.job_title}{" " * title_spaces} | {application.application_date}{" " * date_spaces} | {application.status}{" " * status_spaces} |'
+                f'| {application.id}{" " * id_spaces} | {application.job_title}{" " * title_spaces} | {application.application_date}{" " * date_spaces} | {application.status}{" " * status_spaces} | {company_name}{" " * company_spaces} | {contact_name}{" " * contact_spaces} |'
             )
-    print("-" * 116)
+    print("-" * 129)
 
 
 def view_apps_by_status():
     pass
+
+
+def delete_app(applications):
+    view_apps(applications)
+    print(" ")
+    print("Updated Applications:")
+    unwanted_app_id = input("Enter the ID of the job application you want to delete: ")
+    for app in applications:
+        if app.id == int(unwanted_app_id):
+            db.session.delete(app)
+            print("Application has been deleted!")
+    db.session.commit()
+    view_apps(applications)
 
 
 def print_error():
