@@ -8,8 +8,6 @@ class Company(db.Model):
 
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String)
-    website = db.Column(db.String)
-    industry = db.Column(db.String)
     location = db.Column(db.String)
 
     contacts = db.relationship(
