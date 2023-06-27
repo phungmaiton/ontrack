@@ -47,7 +47,6 @@ class JobApplication(db.Model):
     job_title = db.Column(db.String)
     application_date = db.Column(db.String)
     status = db.Column(db.String)
-    notes = db.Column(db.String)
 
     company_id = db.Column(db.Integer, db.ForeignKey("companies.id"))
     contact_id = db.Column(db.Integer, db.ForeignKey("contacts.id"))
