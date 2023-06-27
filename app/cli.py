@@ -25,8 +25,8 @@ if __name__ == "__main__":
                 "    Type 'a' to add a new job application\n"
                 "    Type 'u' if you want to update a job application status\n"
                 "    Type 's' to view your applications based on application status\n"
-                "    Type 'd' if you want to delete an application\n "
-                "    Typoe 'x' to exit\n"
+                "    Type 'd' if you want to delete an application\n"
+                "    Type 'x' to exit\n"
             )
             if choice.lower() == "v":
                 view_apps(applications)

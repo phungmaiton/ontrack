@@ -56,9 +56,21 @@ def add_app():
 
     title_input = input("Add job title: ")
     date_input = input("Add date of submitting application: ")
-    status_input = input(
-        'Add status of application - please type "Applied," "Interview Scheduled," "Offer Received," or "Rejected": '
+    status_input = input('Add status of application - please type "Applied," "Interview Scheduled," "Offer Received," or "Rejected": ')
+
+    new_application = JobApplication (
+        job_title = title_input,
+        application_date = date_input,
+        status = status_input,
+        company_id = new_company_id,
+        contact_id = new_contact_id
     )
+
+    db.session.add(new_application)
+    db.session.commit()
+    print("")
+    print("You've successfully added a new job application!")
+    print("")
 
 
 def update_app(applications):
@@ -93,20 +105,6 @@ def update_app(applications):
                 f'| {application.id}{" " * id_spaces} | {application.job_title}{" " * title_spaces} | {application.application_date}{" " * date_spaces} | {application.status}{" " * status_spaces} | {company_name}{" " * company_spaces} | {contact_name}{" " * contact_spaces} |'
             )
     print("-" * 129)
-
-
-
-
-    new_application = JobApplication (
-        job_title = title_input,
-        application_date = date_input,
-        status = status_input,
-        company_id = new_company_id,
-        contact_id = new_contact_id
-    )
-
-    db.session.add(new_application)
-    db.session.commit()
 
 
 def view_apps_by_status():
