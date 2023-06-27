@@ -19,8 +19,9 @@ def view_apps(applications):
 
 
 def add_app():
-    pass
-
+    title_input = input('Add job title: ')
+    date_input = input('Add date of submitting application: ')
+    status_input = input('Add status of application - please type "Applied," "Interview Scheduled," "Offer Received," or "Rejected": ')
 
 def view_apps_by_status():
     pass
