@@ -16,6 +16,8 @@ if __name__ == "__main__":
         print("*****")
         print(" ")
         applications = db.session.query(JobApplication)
+        companies = db.session.query(Company)
+        contacts = db.session.query(Contact)
 
         exit_loop = False
         while exit_loop == False:
@@ -29,7 +31,7 @@ if __name__ == "__main__":
                 "    Type 'x' to exit\n"
             )
             if choice.lower() == "v":
-                view_apps(applications)
+                view_apps(applications, companies, contacts)
             elif choice.lower() == "a":
                 add_app()
             elif choice.lower() == "u":
