@@ -240,7 +240,7 @@ def reminder(applications):
             )
             print("-" * 131)
 
-            subject = f"Reminder about {application.job_title}"
+            subject = f"Reminder about the {application.job_title} Application"
             body = f"Regarding {application.job_title} at {application.company.name}.\nHere's your message: {reminder_message}.\nGood luck!"
             schedule.every().day.at("00:00").do(
                 schedule_task, user_email, subject, body
