@@ -242,9 +242,24 @@ def reminder(applications):
 
             subject = f"Reminder about the {application.job_title} Application"
             body = f"Regarding {application.job_title} at {application.company.name}.\nHere's your message: {reminder_message}.\nGood luck!"
+
+            # Comment this out and uncomment the testing codes
+
             schedule.every().day.at("00:00").do(
                 schedule_task, user_email, subject, body
             ).tag(remind_datetime_str)
+
+            # For testing purposes
+
+            # now = datetime.now()
+            # scheduled_time = now + timedelta(seconds=10)
+            # schedule.every().day.at(scheduled_time.strftime("%H:%M")).do(
+            #     schedule_task, user_email, subject, body
+            # )
+
+            # while True:
+            #     schedule.run_pending()
+            #     time.sleep(1)
 
 
 def print_error():
