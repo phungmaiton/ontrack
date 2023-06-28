@@ -215,7 +215,8 @@ def reminder(applications):
     reminder_message = input("Enter the reminder message: ")
     today = datetime.today().date()
     remind_date = today + timedelta(days=when)
-    remind_datetime_str = remind_date.strftime("%Y-%m-%d")
+    remind_datetime_str = remind_date.strftime("%Y-%m-%d") + " 00:00"
+    remind_datetime = datetime.strptime(remind_datetime_str, "%Y-%m-%d %H:%M")
     print(
         f"You will be reminded on \033[1;32m{remind_datetime_str} at 00:00\033[0m about the following job application:"
     )
@@ -245,9 +246,9 @@ def reminder(applications):
 
             # Comment this out and uncomment the testing codes
 
-            schedule.every().day.at("00:00").do(
+            schedule.every().day.at(remind_datetime.strftime("%H:%M")).do(
                 schedule_task, user_email, subject, body
-            ).tag(remind_datetime_str)
+            )
 
             # For testing purposes
 
@@ -257,9 +258,9 @@ def reminder(applications):
             #     schedule_task, user_email, subject, body
             # )
 
-            # while True:
-            #     schedule.run_pending()
-            #     time.sleep(1)
+            while True:
+                schedule.run_pending()
+                time.sleep(1)
 
 
 def print_error():
