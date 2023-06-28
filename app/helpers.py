@@ -1,7 +1,37 @@
 from models import db, Company, Contact, JobApplication
 
+def view_companies(companies):
+    print("-" * 48)
+    print(
+        f'| {"ID":<3} | {"Company Name":<15} | {"Location":<20} |'
+    )
+    print("-" * 48)
+    for company in companies:
+        company_id_spaces = 3 - len(str(company.id))
+        company_name_spaces = 15 - len(company.name)
+        company_location_spaces = 20 - len(company.location)
+        print(
+            f'| {company.id}{" " * company_id_spaces} | {company.name}{" " * company_name_spaces} | {company.location}{" " * company_location_spaces} |'
+        )
+    print("-" * 48)
 
-def view_apps(applications):
+def view_contacts(contacts):
+    print("-" * 90)
+    print(
+        f'| {"ID":<3} | {"Contact Name":<22} | {"Email":<30} | {"Phone Number":<22} |'
+    )
+    print("-" * 90)
+    for contact in contacts:
+        contact_id_spaces = 3 - len(str(contact.id))
+        contact_name_spaces = 22 - len(contact.name)
+        contact_email_spaces = 30 - len(contact.email)
+        contact_phone_spaces = 22 - len(contact.phone_number)
+        print(
+            f'| {contact.id}{" " * contact_id_spaces} | {contact.name}{" " * contact_name_spaces} | {contact.email}{" " * contact_email_spaces} | {contact.phone_number}{" " * contact_phone_spaces} |'
+        )
+    print("-" * 90)
+
+def view_apps(applications, companies, contacts):
     print("-" * 131)
     print(
         f'| {"ID":<3} | {"Job Title":<45} | {"Applied Date":<12} | {"Status":<20} | {"Company":<15} | {"Contact":<17} |'
@@ -20,6 +50,16 @@ def view_apps(applications):
             f'| {application.id}{" " * id_spaces} | {application.job_title}{" " * title_spaces} | {application.application_date}{" " * date_spaces} | {application.status}{" " * status_spaces} | {company_name}{" " * company_spaces} | {contact_name}{" " * contact_spaces} |'
         )
     print("-" * 131)
+    print("")
+    view_choice = input(
+        "    To view the list of companies, type '1'\n"
+        "    To view the list of contacts, type '2'\n"
+        "    To go back to the main menu, press any other key\n"
+    )
+    if view_choice == "1":
+        view_companies(companies)
+    elif view_choice == "2":
+        view_contacts(contacts)
 
 
 def add_company():
