@@ -11,9 +11,19 @@ from helpers import (
 
 if __name__ == "__main__":
     with app.app_context():
-        print("*****")
+        print(
+            """\033[32m 
+  /$$$$$$  /$$   /$$       /$$$$$$$$ /$$$$$$$   /$$$$$$   /$$$$$$  /$$   /$$
+ /$$__  $$| $$$ | $$      |__  $$__/| $$__  $$ /$$__  $$ /$$__  $$| $$  /$$/
+| $$  \ $$| $$$$| $$         | $$   | $$  \ $$| $$  \ $$| $$  \__/| $$ /$$/ 
+| $$  | $$| $$ $$ $$         | $$   | $$$$$$$/| $$$$$$$$| $$      | $$$$$/  
+| $$  | $$| $$  $$$$         | $$   | $$__  $$| $$__  $$| $$      | $$  $$  
+| $$  | $$| $$\  $$$         | $$   | $$  \ $$| $$  | $$| $$    $$| $$\  $$ 
+|  $$$$$$/| $$ \  $$         | $$   | $$  | $$| $$  | $$|  $$$$$$/| $$ \  $$
+ \______/ |__/  \__/         |__/   |__/  |__/|__/  |__/ \______/ |__/  \__/
+\033[0m"""
+        )
         print("Hello, welcome to OnTrack - your personal job application manager!")
-        print("*****")
         print(" ")
         applications = db.session.query(JobApplication)
         companies = db.session.query(Company)
@@ -42,7 +52,9 @@ if __name__ == "__main__":
                 delete_app(applications)
             elif choice.lower() == "x":
                 print("*****")
-                print('Thank you for using OnTrack - helping you stay on track with your job search!')
+                print(
+                    "Thank you for using OnTrack - helping you stay on track with your job search!"
+                )
                 print("*****")
                 exit_loop = True
             else:
