@@ -59,7 +59,7 @@ def view_apps(applications, companies, contacts):
     view_choice = input(
         "    To view the list of companies, type '1'\n"
         "    To view the list of contacts, type '2'\n"
-        "    To go back to the main menu, press any other key\n"
+        "    To go back to the main menu, press any other key (ie. 'Enter')\n"
     )
     if view_choice == "1":
         view_companies(companies)
@@ -96,8 +96,8 @@ def add_app():
     new_company_id = add_company()
     new_contact_id = add_contact()
 
-    title_input = input("Add job title: ")
-    date_input = input("Add date of submitting application: ")
+    title_input = input("Add job title of the position you're applying for: ")
+    date_input = input("Add date of submitting application in MM/DD/YYYY format: ")
     status_input = input(
         'Add status of application - please type "Applied," "Interview Scheduled," "Offer Received," or "Rejected": '
     )
@@ -144,7 +144,7 @@ def view_app(applications):
 def update_app(applications):
     view_app(applications)
     selected_app = input("What is the ID of the job application you want to update? ")
-    updated_status = input("What is the updated status? ")
+    updated_status = input("What is the updated status? Please type 'Applied,' 'Interview Scheduled,' 'Offer Received,' or 'Rejected': ")
     for application in applications:
         if application.id == int(selected_app):
             application.status = updated_status.title()
@@ -209,9 +209,9 @@ def reminder(applications):
     view_app(applications)
     app_id = input("Enter the ID of the application for this reminder: ")
     when = int(
-        input("In how many days would you like to be reminded? Just enter the number: ")
+        input("In how many days would you like to be reminded? Enter the number: ")
     )
-    user_email = input("Enter the email address to receive notification: ")
+    user_email = input("Enter your email address to receive notification: ")
     reminder_message = input("Enter the reminder message: ")
     today = datetime.today().date()
     remind_date = today + timedelta(days=when)
@@ -268,9 +268,9 @@ def print_error():
     input(
         "    Type 'v' to view all of your current job applications\n"
         "    Type 'a' to add a new job application\n"
-        "    Type 'u' if you want to update a job application status\n"
+        "    Type 'u' to update a job application status\n"
         "    Type 's' to view your applications based on application status\n"
-        "    Type 'r' if you want to to set a reminder\n"
-        "    Type 'd' if you want to delete an application\n"
+        "    Type 'r' to set a reminder for an application\n"
+        "    Type 'd' to delete an application\n"
         "    Type 'x' to exit\n"
     )
