@@ -39,6 +39,9 @@ if __name__ == "__main__":
             elif choice.lower() == "d":
                 delete_app(applications)
             elif choice.lower() == "x":
+                print("*****")
+                print('Thank you for using OnTrack - helping you stay on track with your job search!')
+                print("*****")
                 exit_loop = True
             else:
                 print_error()
