@@ -7,6 +7,7 @@ from helpers import (
     update_app,
     print_error,
     delete_app,
+    reminder,
 )
 
 if __name__ == "__main__":
@@ -37,6 +38,7 @@ if __name__ == "__main__":
                 "    Type 'a' to add a new job application\n"
                 "    Type 'u' if you want to update a job application status\n"
                 "    Type 's' to view your applications based on application status\n"
+                "    Type 'r' if you want to to set a reminder\n"
                 "    Type 'd' if you want to delete an application\n"
                 "    Type 'x' to exit\n"
             )
@@ -48,6 +50,8 @@ if __name__ == "__main__":
                 update_app(applications)
             elif choice.lower() == "s":
                 view_apps_by_status()
+            elif choice.lower() == "r":
+                reminder(applications)
             elif choice.lower() == "d":
                 delete_app(applications)
             elif choice.lower() == "x":
