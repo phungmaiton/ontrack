@@ -248,7 +248,7 @@ def reminder(applications):
 
             schedule.every().day.at(remind_datetime.strftime("%H:%M")).do(
                 schedule_task, user_email, subject, body
-            )
+            ).tag(remind_datetime_str)
 
             # For testing purposes
 
