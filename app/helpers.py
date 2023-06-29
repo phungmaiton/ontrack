@@ -204,7 +204,9 @@ def reminder(applications):
     view_app(applications)
     app_id = input("Enter the ID of the application for this reminder: ")
     when = int(
-        input("In how many days would you like to be reminded? (e.g: "0" for today, "1" for tomorrow, etc.) ")
+        input(
+            "In how many days would you like to be reminded? (e.g: 0 for today, 1 for tomorrow, etc.)"
+        )
     )
     remind_time = input(
         "Enter the time (24-hour format) you want to receive your notification (HH:MM): "
