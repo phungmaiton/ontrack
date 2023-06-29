@@ -1,8 +1,7 @@
 from models import db, Company, Contact, JobApplication
 from datetime import datetime, timedelta
 import subprocess
-import schedule
-import time
+from apscheduler.schedulers.background import BackgroundScheduler
 
 
 def view_companies(companies):
@@ -201,24 +200,30 @@ def send_mail(user_email, subject, body):
         print(f"Error occurred while sending email: {e}")
 
 
-def schedule_task(user_email, subject, body):
-    send_mail(user_email, subject, body)
-
-
 def reminder(applications):
     view_app(applications)
     app_id = input("Enter the ID of the application for this reminder: ")
     when = int(
-        input("In how many days would you like to be reminded? Enter the number: ")
+
+        input(
+            "In how many days would you like to be reminded? (e.g: 0 for today, 1 for tomorrow, etc.)"
+        )
+    )
+    remind_time = input(
+        "Enter the time (24-hour format) you want to receive your notification (HH:MM): "
+
     )
     user_email = input("Enter your email address to receive notification: ")
     reminder_message = input("Enter the reminder message: ")
+
     today = datetime.today().date()
     remind_date = today + timedelta(days=when)
-    remind_datetime_str = remind_date.strftime("%Y-%m-%d") + " 00:00"
-    remind_datetime = datetime.strptime(remind_datetime_str, "%Y-%m-%d %H:%M")
+    remind_date_str = remind_date.strftime("%Y-%m-%d")
+    remind_datetime = datetime.strptime(
+        remind_date.strftime("%Y-%m-%d") + " " + remind_time, "%Y-%m-%d %H:%M"
+    )
     print(
-        f"You will be reminded on \033[1;32m{remind_datetime_str} at 00:00\033[0m about the following job application:"
+        f"You will be reminded on \033[1;32m{remind_date_str} at {remind_time}\033[0m about the following job application:"
     )
 
     for application in applications:
@@ -242,25 +247,32 @@ def reminder(applications):
             print("-" * 131)
 
             subject = f"Reminder about the {application.job_title} Application"
-            body = f"Regarding {application.job_title} at {application.company.name}.\nHere's your message: {reminder_message}.\nGood luck!"
+            body = f"Regarding {application.job_title} at {application.company.name}.\nHere's your message: {reminder_message}\nGood luck!"
 
             # Comment this out and uncomment the testing codes
 
-            schedule.every().day.at(remind_datetime.strftime("%H:%M")).do(
-                schedule_task, user_email, subject, body
-            ).tag(remind_datetime_str)
+            scheduler = BackgroundScheduler()
+            scheduler.add_job(
+                send_mail,
+                "date",
+                run_date=remind_datetime,
+                args=[user_email, subject, body],
+            )
+            scheduler.start()
 
             # For testing purposes
 
-            # now = datetime.now()
-            # scheduled_time = now + timedelta(seconds=10)
-            # schedule.every().day.at(scheduled_time.strftime("%H:%M")).do(
-            #     schedule_task, user_email, subject, body
-            # )
+            # sendtime = datetime.now() + timedelta(seconds=10)
+            # scheduled_time = sendtime.replace(microsecond=0)
 
-            while True:
-                schedule.run_pending()
-                time.sleep(1)
+            # scheduler = BackgroundScheduler()
+            # scheduler.add_job(
+            #     send_mail,
+            #     "date",
+            #     run_date=scheduled_time,
+            #     args=[user_email, subject, body],
+            # )
+            # scheduler.start()
 
 
 def print_error():
