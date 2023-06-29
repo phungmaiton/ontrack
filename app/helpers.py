@@ -1,10 +1,7 @@
 from models import db, Company, Contact, JobApplication
 from datetime import datetime, timedelta
 import subprocess
-import schedule
-import time
 from apscheduler.schedulers.background import BackgroundScheduler
-from apscheduler.schedulers.blocking import BlockingScheduler
 
 
 def view_companies(companies):
@@ -203,18 +200,14 @@ def send_mail(user_email, subject, body):
         print(f"Error occurred while sending email: {e}")
 
 
-def schedule_task(user_email, subject, body):
-    send_mail(user_email, subject, body)
-
-
 def reminder(applications):
     view_app(applications)
     app_id = input("Enter the ID of the application for this reminder: ")
     when = int(
-        input("In how many days would you like to be reminded? Just enter the number: ")
+        input("In how many days would you like to be reminded? (e.g: "0" for today, "1" for tomorrow, etc.) ")
     )
     remind_time = input(
-        "Enter the time you want to receive your notification (HH:MM): "
+        "Enter the time (24-hour format) you want to receive your notification (HH:MM): "
     )
     user_email = input("Enter the email address to receive notification: ")
     reminder_message = input("Enter the reminder message: ")
@@ -250,13 +243,13 @@ def reminder(applications):
             print("-" * 131)
 
             subject = f"Reminder about the {application.job_title} Application"
-            body = f"Regarding {application.job_title} at {application.company.name}.\nHere's your message: {reminder_message}.\nGood luck!"
+            body = f"Regarding {application.job_title} at {application.company.name}.\nHere's your message: {reminder_message}\nGood luck!"
 
             # Comment this out and uncomment the testing codes
 
             scheduler = BackgroundScheduler()
             scheduler.add_job(
-                schedule_task,
+                send_mail,
                 "date",
                 run_date=remind_datetime,
                 args=[user_email, subject, body],
@@ -270,7 +263,7 @@ def reminder(applications):
 
             # scheduler = BackgroundScheduler()
             # scheduler.add_job(
-            #     schedule_task,
+            #     send_mail,
             #     "date",
             #     run_date=scheduled_time,
             #     args=[user_email, subject, body],
