@@ -213,15 +213,20 @@ def reminder(applications):
     when = int(
         input("In how many days would you like to be reminded? Just enter the number: ")
     )
+    remind_time = input(
+        "Enter the time you want to receive your notification (HH:MM): "
+    )
     user_email = input("Enter the email address to receive notification: ")
     reminder_message = input("Enter the reminder message: ")
+
     today = datetime.today().date()
     remind_date = today + timedelta(days=when)
-    remind_datetime_str = remind_date.strftime("%Y-%m-%d")
-    remind_datetime = datetime.combine(remind_date, datetime.min.time())
-
+    remind_date_str = remind_date.strftime("%Y-%m-%d")
+    remind_datetime = datetime.strptime(
+        remind_date.strftime("%Y-%m-%d") + " " + remind_time, "%Y-%m-%d %H:%M"
+    )
     print(
-        f"You will be reminded on \033[1;32m{remind_datetime_str} at 00:00\033[0m about the following job application:"
+        f"You will be reminded on \033[1;32m{remind_date_str} at {remind_time}\033[0m about the following job application:"
     )
 
     for application in applications:
@@ -258,13 +263,8 @@ def reminder(applications):
             )
             scheduler.start()
 
-            # Keep the program running
-            # input("Press Enter to exit...")
-            # scheduler.shutdown()
-
             # For testing purposes
 
-            # now = datetime.now()
             # sendtime = datetime.now() + timedelta(seconds=10)
             # scheduled_time = sendtime.replace(microsecond=0)
 
