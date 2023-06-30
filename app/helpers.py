@@ -19,20 +19,20 @@ def view_companies(companies):
 
 
 def view_contacts(contacts):
-    print("-" * 90)
+    print("-" * 79)
     print(
-        f'| {"ID":<3} | {"Contact Name":<22} | {"Email":<30} | {"Phone Number":<22} |'
+        f'| {"ID":<3} | {"Contact Name":<19} | {"Email":<30} | {"Phone Number":<14} |'
     )
-    print("-" * 90)
+    print("-" * 79)
     for contact in contacts:
         contact_id_spaces = 3 - len(str(contact.id))
-        contact_name_spaces = 22 - len(contact.name)
+        contact_name_spaces = 19 - len(contact.name)
         contact_email_spaces = 30 - len(contact.email)
-        contact_phone_spaces = 22 - len(contact.phone_number)
+        contact_phone_spaces = 14 - len(contact.phone_number)
         print(
             f'| {contact.id}{" " * contact_id_spaces} | {contact.name}{" " * contact_name_spaces} | {contact.email}{" " * contact_email_spaces} | {contact.phone_number}{" " * contact_phone_spaces} |'
         )
-    print("-" * 90)
+    print("-" * 79)
 
 
 def view_apps(applications, companies, contacts):
@@ -115,9 +115,8 @@ def add_app():
     db.session.add(new_application)
     db.session.commit()
     print("")
-    print("You've successfully added a new job application!")
+    print("\033[32m\033[1mYou've successfully added a new job application to your list!\033[0m")
     print("")
-
 
 def view_app(applications):
     print("-" * 131)
@@ -276,13 +275,4 @@ def reminder(applications):
 
 
 def print_error():
-    print("Please choose one of the following options:")
-    input(
-        "    Type 'v' to view all of your current job applications\n"
-        "    Type 'a' to add a new job application\n"
-        "    Type 'u' to update a job application status\n"
-        "    Type 's' to view your applications based on application status\n"
-        "    Type 'r' to set a reminder for an application\n"
-        "    Type 'd' to delete an application\n"
-        "    Type 'x' to exit\n"
-    )
+    print("Invalid option - please see the main menu below")
