@@ -175,7 +175,7 @@ def update_app(applications):
 
 def view_apps_by_status(applications):
 
-    selected_status = input("What application status you would like to see? Please type 'Applied,' 'Interview Scheduled,' 'Offer Received,' or 'Rejected'\n")
+    selected_status = input("What application status would you like to see? Please type 'Applied,' 'Interview Scheduled,' 'Offer Received,' or 'Rejected'\n")
     print("")
     print("Selected Applications: ")
     print("-" * 131)
