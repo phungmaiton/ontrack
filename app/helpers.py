@@ -115,8 +115,11 @@ def add_app():
     db.session.add(new_application)
     db.session.commit()
     print("")
-    print("\033[32m\033[1mYou've successfully added a new job application to your list!\033[0m")
+    print(
+        "\033[32m\033[1mYou've successfully added a new job application to your list!\033[0m"
+    )
     print("")
+
 
 def view_app(applications):
     print("-" * 131)
@@ -142,7 +145,9 @@ def view_app(applications):
 def update_app(applications):
     view_app(applications)
     selected_app = input("What is the ID of the job application you want to update? ")
-    updated_status = input("What is the updated status? Please type 'Applied,' 'Interview Scheduled,' 'Offer Received,' or 'Rejected': ")
+    updated_status = input(
+        "What is the updated status? Please type 'Applied,' 'Interview Scheduled,' 'Offer Received,' or 'Rejected': "
+    )
     for application in applications:
         if application.id == int(selected_app):
             application.status = updated_status.title()
@@ -174,8 +179,9 @@ def update_app(applications):
 
 
 def view_apps_by_status(applications):
-
-    selected_status = input("What application status would you like to see? Please type 'Applied,' 'Interview Scheduled,' 'Offer Received,' or 'Rejected'\n")
+    selected_status = input(
+        "What application status would you like to see? Please type 'Applied,' 'Interview Scheduled,' 'Offer Received,' or 'Rejected'\n"
+    )
     print("")
     print("Selected Applications: ")
     print("-" * 131)
@@ -192,28 +198,33 @@ def view_apps_by_status(applications):
         company_name = application.company.name
         company_spaces = 15 - len(company_name)
         contact_name = application.contact.name
-        contact_spaces = 17 - len(contact_name)  
+        contact_spaces = 17 - len(contact_name)
 
-        if selected_status.title() == 'Applied' and application.status == 'Applied':
+        if selected_status.title() == "Applied" and application.status == "Applied":
             print(
                 f'| {application.id}{" " * id_spaces} | {application.job_title}{" " * title_spaces} | {application.application_date}{" " * date_spaces} | {application.status}{" " * status_spaces} | {company_name}{" " * company_spaces} | {contact_name}{" " * contact_spaces} |'
             )
 
-        elif selected_status.title() == 'Interview Scheduled' and application.status == 'Interview Scheduled':
-                print(
+        elif (
+            selected_status.title() == "Interview Scheduled"
+            and application.status == "Interview Scheduled"
+        ):
+            print(
                 f'| {application.id}{" " * id_spaces} | {application.job_title}{" " * title_spaces} | {application.application_date}{" " * date_spaces} | {application.status}{" " * status_spaces} | {company_name}{" " * company_spaces} | {contact_name}{" " * contact_spaces} |'
             )
 
-        elif selected_status.title() == 'Offer Received'and application.status == 'Offer Received':
-                print(
+        elif (
+            selected_status.title() == "Offer Received"
+            and application.status == "Offer Received"
+        ):
+            print(
                 f'| {application.id}{" " * id_spaces} | {application.job_title}{" " * title_spaces} | {application.application_date}{" " * date_spaces} | {application.status}{" " * status_spaces} | {company_name}{" " * company_spaces} | {contact_name}{" " * contact_spaces} |'
             )
-        elif selected_status.title() == 'Rejected' and application.status == 'Rejected':
-                print(
+        elif selected_status.title() == "Rejected" and application.status == "Rejected":
+            print(
                 f'| {application.id}{" " * id_spaces} | {application.job_title}{" " * title_spaces} | {application.application_date}{" " * date_spaces} | {application.status}{" " * status_spaces} | {company_name}{" " * company_spaces} | {contact_name}{" " * contact_spaces} |'
             )
     print("")
-
 
 
 def delete_app(applications):
@@ -224,7 +235,7 @@ def delete_app(applications):
     for app in applications:
         if app.id == int(unwanted_app_id):
             db.session.delete(app)
-            print("Application has been deleted!")
+            print("\033[1;31mApplication has been deleted!\033[0m")
     db.session.commit()
     view_app(applications)
 
@@ -233,7 +244,7 @@ def send_mail(user_email, subject, body):
     command_args = ["pmail", user_email, subject, body]
     try:
         subprocess.run(command_args, check=True)
-        print("Email sent successfully!")
+        print("\033[1;32mEmail sent successfully!\033[0m")
     except subprocess.CalledProcessError as e:
         print(f"Error occurred while sending email: {e}")
 
@@ -242,14 +253,12 @@ def reminder(applications):
     view_app(applications)
     app_id = input("Enter the ID of the application for this reminder: ")
     when = int(
-
         input(
-            "In how many days would you like to be reminded? (e.g: 0 for today, 1 for tomorrow, etc.)"
+            "In how many days would you like to be reminded? (e.g: 0 for today, 1 for tomorrow, etc.) "
         )
     )
     remind_time = input(
         "Enter the time (24-hour format) you want to receive your notification (HH:MM): "
-
     )
     user_email = input("Enter your email address to receive notification: ")
     reminder_message = input("Enter the reminder message: ")
@@ -314,4 +323,4 @@ def reminder(applications):
 
 
 def print_error():
-    print("Invalid option - please see the main menu below")
+    print("\033[1;31mInvalid option - please see the main menu below\033[0m")
