@@ -244,7 +244,7 @@ def send_mail(user_email, subject, body):
     command_args = ["pmail", user_email, subject, body]
     try:
         subprocess.run(command_args, check=True)
-        print("Email sent successfully!")
+        print("\033[1;32mEmail sent successfully!\033[0m")
     except subprocess.CalledProcessError as e:
         print(f"Error occurred while sending email: {e}")
 
