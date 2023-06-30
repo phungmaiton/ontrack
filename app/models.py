@@ -66,6 +66,7 @@ class JobApplication(db.Model):
 
     def __repr__(self):
         return f"<Job Application {self.job_title}"
+    
 
 
 # Flask db revision --autogenerate -m "message if you want"

@@ -49,7 +49,7 @@ if __name__ == "__main__":
             elif choice.lower() == "u":
                 update_app(applications)
             elif choice.lower() == "s":
-                view_apps_by_status()
+                view_apps_by_status(applications)
             elif choice.lower() == "r":
                 reminder(applications)
             elif choice.lower() == "d":

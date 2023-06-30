@@ -174,9 +174,44 @@ def update_app(applications):
     print("-" * 131)
 
 
-def view_apps_by_status():
-    pass
+def view_apps_by_status(applications):
 
+    selected_status = input("What application status you would like to see? Please type 'Applied,' 'Interview Scheduled,' 'Offer Received,' or 'Rejected'\n")
+    print("")
+    print("Selected Applications: ")
+    print("-" * 131)
+    print(
+        f'| {"ID":<3} | {"Job Title":<45} | {"Applied Date":<12} | {"Status":<20} | {"Company":<15} | {"Contact":<17} |'
+    )
+    print("-" * 131)
+    for application in applications:
+        id_spaces = 3 - len(str(application.id))
+        title_spaces = 45 - len(application.job_title)
+        date_spaces = 12 - len(application.application_date)
+        status_spaces = 20 - len(application.status)
+        company_name = application.company.name
+        company_spaces = 15 - len(company_name)
+        contact_name = application.contact.name
+        contact_spaces = 17 - len(contact_name)  
+
+        if selected_status == 'Applied' and application.status == 'Applied':
+            print(
+                f'| {application.id}{" " * id_spaces} | {application.job_title}{" " * title_spaces} | {application.application_date}{" " * date_spaces} | {application.status}{" " * status_spaces} | {company_name}{" " * company_spaces} | {contact_name}{" " * contact_spaces} |'
+            )
+
+        elif selected_status == 'Interview Scheduled'and application.status == 'Interview Scheduled':
+                print(
+                f'| {application.id}{" " * id_spaces} | {application.job_title}{" " * title_spaces} | {application.application_date}{" " * date_spaces} | {application.status}{" " * status_spaces} | {company_name}{" " * company_spaces} | {contact_name}{" " * contact_spaces} |'
+            )
+
+        elif selected_status == 'Offer Received'and application.status == 'Offer Received':
+                print(
+                f'| {application.id}{" " * id_spaces} | {application.job_title}{" " * title_spaces} | {application.application_date}{" " * date_spaces} | {application.status}{" " * status_spaces} | {company_name}{" " * company_spaces} | {contact_name}{" " * contact_spaces} |'
+            )
+        elif selected_status == 'Rejected' and application.status == 'Rejected':
+                print(
+                f'| {application.id}{" " * id_spaces} | {application.job_title}{" " * title_spaces} | {application.application_date}{" " * date_spaces} | {application.status}{" " * status_spaces} | {company_name}{" " * company_spaces} | {contact_name}{" " * contact_spaces} |'
+            )
 
 def delete_app(applications):
     view_app(applications)
