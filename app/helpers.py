@@ -224,7 +224,8 @@ def view_apps_by_status(applications):
             print(
                 f'| {application.id}{" " * id_spaces} | {application.job_title}{" " * title_spaces} | {application.application_date}{" " * date_spaces} | {application.status}{" " * status_spaces} | {company_name}{" " * company_spaces} | {contact_name}{" " * contact_spaces} |'
             )
-    print("")
+    print("-" * 131)
+    # print("")
 
 
 def delete_app(applications):
